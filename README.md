@@ -2,6 +2,15 @@
  
 This is a template for a Django REST Framework project.
 
+`.env` file contains environment variables for the project.
+
+```ruby
+POSTGRES_DB=drf_api_template
+POSTGRES_USER=user
+POSTGRES_PASSWORD=pass
+SECRET_KEY=verysecretsomething
+```
+
 # Docker Commands
  
 - **Build** `Dockerfile` 
