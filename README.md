@@ -59,3 +59,66 @@ SECRET_KEY=verysecretsomething
     - `http://localhost:8000/users/details`
       - needs `Authorization` header with `Token {{token}}` value 
 
+# Deploy
+
+Update **`settings.py`** file with the following
+
+```python
+
+ALLOWED_HOSTS = ['localhost','127.0.0.1','drf_api.herokuapp.com']
+
+MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "deplyed_frontend_url.com"
+]
+
+if "DATABASE_URL" in os.environ:
+    DATABASES["default"] = env.db("DATABASE_URL")
+    DATABASES["default"]["ATOMIC_REQUESTS"] = True
+
+```
+
+update **`requirements.txt`** file with the following
+
+```ruby
+uritemplate
+gunicorn==20.1.0
+whitenoise==5.2.0
+django-environ==0.8.1
+```
+
+add **`Procfile`** file with the following
+
+```ruby
+web: gunicorn drf_api.wsgi --log-file -
+```
+
+add **`heroku.yml`** file with the following
+
+```ruby
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+build:
+  docker:
+    web: Dockerfile
+run:
+  web: gunicorn drf_api.wsgi:application --bind 0.0.0.0:$PORT
+```
+
+add the following CONFIG VARS in Heroku
+
+```ruby
+ALLOWED_HOSTS=drf_api.herokuapp.com
+DATABASE_URL=postgres://user:pass@host:port/db
+SECRET_KEY=verysecretsomething
+DISABLE_COLLECTSTATIC=1
+HOST=localhost
+WEB_CONCURRENCY=1
+```
