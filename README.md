@@ -49,3 +49,13 @@ SECRET_KEY=verysecretsomething
 - Install **package**
 
     `docker-compose run django pip install drf-nested-routers`
+
+# API Endpoints
+
+- **User** endpoints
+
+    - `http://localhost:8000/users/register`
+    - `http://localhost:8000/users/login`
+    - `http://localhost:8000/users/details`
+      - needs `Authorization` header with `Token {{token}}` value 
+
