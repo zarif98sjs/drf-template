@@ -23,7 +23,7 @@ SECRET_KEY=verysecretsomething
     
 - **Start Django Project** using `django` service defined inside docker-compose
   
-    `docker-compose run django django-admin startproject intdesk_api .`
+    `docker-compose run django django-admin startproject drf_api .`
 
 - **Start Django App**
   
@@ -59,3 +59,6 @@ SECRET_KEY=verysecretsomething
     - `http://localhost:8000/users/details`
       - needs `Authorization` header with `Token {{token}}` value 
 
+# Deploy
+
+template code for heroky deploy is available in the `deploy` branch
